@@ -3,11 +3,18 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
-trigger:
-- master
-
 pool:
   vmImage: 'ubuntu-latest'
+  
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+
+pr: none
+
+name: '[$(BuildID)]$(SourceBranchName)-$(Build.SourceVersion)-$(Date:yyyyMMdd)-$(Rev:#rr)'
 
 steps:
 - task: NodeTool@0
